@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ParticipacionCreateDlg" widgetVar="ParticipacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateParticipacionTitle}">
+            <h:form id="ParticipacionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{participacionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateParticipacionLabel_idParticipacion}" for="idParticipacion" />
+                        <p:inputText id="idParticipacion" value="#{participacionController.selected.idParticipacion}" title="#{bundle.CreateParticipacionTitle_idParticipacion}" required="true" requiredMessage="#{bundle.CreateParticipacionRequiredMessage_idParticipacion}"/>
+                        <p:outputLabel value="#{bundle.CreateParticipacionLabel_fkCodigoTorneo}" for="fkCodigoTorneo" />
+                        <p:selectOneMenu id="fkCodigoTorneo" value="#{participacionController.selected.fkCodigoTorneo}" required="true" requiredMessage="#{bundle.EditParticipacionRequiredMessage_fkCodigoTorneo}">
+                            <f:selectItems value="#{torneoController.itemsAvailableSelectOne}"
+                                           var="fkCodigoTorneoItem"
+                                           itemValue="#{fkCodigoTorneoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateParticipacionLabel_fkIdEquipo}" for="fkIdEquipo" />
+                        <p:selectOneMenu id="fkIdEquipo" value="#{participacionController.selected.fkIdEquipo}" required="true" requiredMessage="#{bundle.EditParticipacionRequiredMessage_fkIdEquipo}">
+                            <f:selectItems value="#{equipoController.itemsAvailableSelectOne}"
+                                           var="fkIdEquipoItem"
+                                           itemValue="#{fkIdEquipoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{participacionController.create}" value="#{bundle.Save}" update="display,:ParticipacionListForm:datalist,:growl" oncomplete="handleSubmit(args,'ParticipacionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ParticipacionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

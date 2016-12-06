@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FechaViewDlg" widgetVar="FechaViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFechaTitle}">
+            <h:form id="FechaViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fechaController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFechaLabel_idFechaProgramada}"/>
+                        <h:outputText value="#{fechaController.selected.idFechaProgramada}" title="#{bundle.ViewFechaTitle_idFechaProgramada}"/>
+                        <h:outputText value="#{bundle.ViewFechaLabel_horaEncuentro}"/>
+                        <h:outputText value="#{fechaController.selected.horaEncuentro}" title="#{bundle.ViewFechaTitle_horaEncuentro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFechaLabel_fechaEncuentro}"/>
+                        <h:outputText value="#{fechaController.selected.fechaEncuentro}" title="#{bundle.ViewFechaTitle_fechaEncuentro}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewFechaLabel_encuentro}"/>
+                        <h:outputText value="#{fechaController.selected.encuentro}" title="#{bundle.ViewFechaTitle_encuentro}"/>
+                        <h:outputText value="#{bundle.ViewFechaLabel_fkCodigoTorneo}"/>
+                        <h:outputText value="#{fechaController.selected.fkCodigoTorneo}" title="#{bundle.ViewFechaTitle_fkCodigoTorneo}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FechaViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioHorarioCreateDlg" widgetVar="UsuarioHorarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioHorarioTitle}">
+            <h:form id="UsuarioHorarioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioHorarioController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioHorarioLabel_idConsulta}" for="idConsulta" />
+                        <p:inputText id="idConsulta" value="#{usuarioHorarioController.selected.idConsulta}" title="#{bundle.CreateUsuarioHorarioTitle_idConsulta}" required="true" requiredMessage="#{bundle.CreateUsuarioHorarioRequiredMessage_idConsulta}"/>
+                        <p:outputLabel value="#{bundle.CreateUsuarioHorarioLabel_fkIdUsuario}" for="fkIdUsuario" />
+                        <p:selectOneMenu id="fkIdUsuario" value="#{usuarioHorarioController.selected.fkIdUsuario}" required="true" requiredMessage="#{bundle.EditUsuarioHorarioRequiredMessage_fkIdUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="fkIdUsuarioItem"
+                                           itemValue="#{fkIdUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioHorarioLabel_fkIdEntrenamiento}" for="fkIdEntrenamiento" />
+                        <p:selectOneMenu id="fkIdEntrenamiento" value="#{usuarioHorarioController.selected.fkIdEntrenamiento}" required="true" requiredMessage="#{bundle.EditUsuarioHorarioRequiredMessage_fkIdEntrenamiento}">
+                            <f:selectItems value="#{horarioController.itemsAvailableSelectOne}"
+                                           var="fkIdEntrenamientoItem"
+                                           itemValue="#{fkIdEntrenamientoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioHorarioController.create}" value="#{bundle.Save}" update="display,:UsuarioHorarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioHorarioCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioHorarioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

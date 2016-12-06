@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsignacionEquipoCreateDlg" widgetVar="AsignacionEquipoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAsignacionEquipoTitle}">
+            <h:form id="AsignacionEquipoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asignacionEquipoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAsignacionEquipoLabel_idAsignacion}" for="idAsignacion" />
+                        <p:inputText id="idAsignacion" value="#{asignacionEquipoController.selected.idAsignacion}" title="#{bundle.CreateAsignacionEquipoTitle_idAsignacion}" required="true" requiredMessage="#{bundle.CreateAsignacionEquipoRequiredMessage_idAsignacion}"/>
+                        <p:outputLabel value="#{bundle.CreateAsignacionEquipoLabel_cargo}" for="cargo" />
+                        <p:inputText id="cargo" value="#{asignacionEquipoController.selected.cargo}" title="#{bundle.CreateAsignacionEquipoTitle_cargo}" required="true" requiredMessage="#{bundle.CreateAsignacionEquipoRequiredMessage_cargo}"/>
+                        <p:outputLabel value="#{bundle.CreateAsignacionEquipoLabel_fkIdEquipo}" for="fkIdEquipo" />
+                        <p:selectOneMenu id="fkIdEquipo" value="#{asignacionEquipoController.selected.fkIdEquipo}" required="true" requiredMessage="#{bundle.EditAsignacionEquipoRequiredMessage_fkIdEquipo}">
+                            <f:selectItems value="#{equipoController.itemsAvailableSelectOne}"
+                                           var="fkIdEquipoItem"
+                                           itemValue="#{fkIdEquipoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAsignacionEquipoLabel_fkIdUsuario}" for="fkIdUsuario" />
+                        <p:selectOneMenu id="fkIdUsuario" value="#{asignacionEquipoController.selected.fkIdUsuario}" required="true" requiredMessage="#{bundle.EditAsignacionEquipoRequiredMessage_fkIdUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="fkIdUsuarioItem"
+                                           itemValue="#{fkIdUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{asignacionEquipoController.create}" value="#{bundle.Save}" update="display,:AsignacionEquipoListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsignacionEquipoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AsignacionEquipoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

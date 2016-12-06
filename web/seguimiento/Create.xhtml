@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SeguimientoCreateDlg" widgetVar="SeguimientoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSeguimientoTitle}">
+            <h:form id="SeguimientoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{seguimientoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSeguimientoLabel_codigoSeguimiento}" for="codigoSeguimiento" />
+                        <p:inputText id="codigoSeguimiento" value="#{seguimientoController.selected.codigoSeguimiento}" title="#{bundle.CreateSeguimientoTitle_codigoSeguimiento}" required="true" requiredMessage="#{bundle.CreateSeguimientoRequiredMessage_codigoSeguimiento}"/>
+                        <p:outputLabel value="#{bundle.CreateSeguimientoLabel_fechaInicio}" for="fechaInicio" />
+                        <p:calendar id="fechaInicio" pattern="MM/dd/yyyy" value="#{seguimientoController.selected.fechaInicio}" title="#{bundle.EditSeguimientoTitle_fechaInicio}" required="true" requiredMessage="#{bundle.EditSeguimientoRequiredMessage_fechaInicio}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateSeguimientoLabel_fechaFin}" for="fechaFin" />
+                        <p:calendar id="fechaFin" pattern="MM/dd/yyyy" value="#{seguimientoController.selected.fechaFin}" title="#{bundle.EditSeguimientoTitle_fechaFin}" required="true" requiredMessage="#{bundle.EditSeguimientoRequiredMessage_fechaFin}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateSeguimientoLabel_resultadoSeguimiento}" for="resultadoSeguimiento" />
+                        <p:inputText id="resultadoSeguimiento" value="#{seguimientoController.selected.resultadoSeguimiento}" title="#{bundle.CreateSeguimientoTitle_resultadoSeguimiento}" required="true" requiredMessage="#{bundle.CreateSeguimientoRequiredMessage_resultadoSeguimiento}"/>
+                        <p:outputLabel value="#{bundle.CreateSeguimientoLabel_fkIdJugador}" for="fkIdJugador" />
+                        <p:selectOneMenu id="fkIdJugador" value="#{seguimientoController.selected.fkIdJugador}" required="true" requiredMessage="#{bundle.EditSeguimientoRequiredMessage_fkIdJugador}">
+                            <f:selectItems value="#{jugadorController.itemsAvailableSelectOne}"
+                                           var="fkIdJugadorItem"
+                                           itemValue="#{fkIdJugadorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{seguimientoController.create}" value="#{bundle.Save}" update="display,:SeguimientoListForm:datalist,:growl" oncomplete="handleSubmit(args,'SeguimientoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SeguimientoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AsignacionActividadCreateDlg" widgetVar="AsignacionActividadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAsignacionActividadTitle}">
+            <h:form id="AsignacionActividadCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{asignacionActividadController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAsignacionActividadLabel_idAsignacionActividad}" for="idAsignacionActividad" />
+                        <p:inputText id="idAsignacionActividad" value="#{asignacionActividadController.selected.idAsignacionActividad}" title="#{bundle.CreateAsignacionActividadTitle_idAsignacionActividad}" required="true" requiredMessage="#{bundle.CreateAsignacionActividadRequiredMessage_idAsignacionActividad}"/>
+                        <p:outputLabel value="#{bundle.CreateAsignacionActividadLabel_fkIdUsuario}" for="fkIdUsuario" />
+                        <p:selectOneMenu id="fkIdUsuario" value="#{asignacionActividadController.selected.fkIdUsuario}" required="true" requiredMessage="#{bundle.EditAsignacionActividadRequiredMessage_fkIdUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="fkIdUsuarioItem"
+                                           itemValue="#{fkIdUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateAsignacionActividadLabel_fkIdActividad}" for="fkIdActividad" />
+                        <p:selectOneMenu id="fkIdActividad" value="#{asignacionActividadController.selected.fkIdActividad}" required="true" requiredMessage="#{bundle.EditAsignacionActividadRequiredMessage_fkIdActividad}">
+                            <f:selectItems value="#{actividadController.itemsAvailableSelectOne}"
+                                           var="fkIdActividadItem"
+                                           itemValue="#{fkIdActividadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{asignacionActividadController.create}" value="#{bundle.Save}" update="display,:AsignacionActividadListForm:datalist,:growl" oncomplete="handleSubmit(args,'AsignacionActividadCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AsignacionActividadCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

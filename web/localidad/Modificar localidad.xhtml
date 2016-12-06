@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocalidadEditDlg" widgetVar="LocalidadEditDialog" modal="true" resizable="false" appendTo="@(body)" header="Modificar">
+            <h:form id="LocalidadEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{localidadManagedBean.localidad != null}">
+                        <p:outputLabel value="Código de la localidad" for="idLocalidad" />
+                        <p:inputText id="idLocalidad" value="#{localidadManagedBean.localidad.idLocalidad}" title="Código" required="true" requiredMessage="Campo requerido"/>
+                       
+                        <p:outputLabel value="Nombre" for="nombreLocalidad" />
+                        <p:inputText id="nombreLocalidad" value="#{localidadManagedBean.localidad.idLocalidad}" title="Nombre" required="true" requiredMessage="Campo requerido"/>
+                        
+                        <p:outputLabel value="Ciudad" for="fkIdCiudad" />
+                        <p:selectOneMenu id="fkIdCiudad" value="#{localidadManagedBean.localidad.fkIdCiudad}" required="true" requiredMessage="#{bundle.EditLocalidadRequiredMessage_fkIdCiudad}">
+                            <f:selectItem itemLabel="Elija la ciudad correspondiente"/>
+                            <f:selectItems value="#{ciudadManagedBean.itemsAvailableSelectOne}"
+                                           var="fkIdCiudadItem"
+                                           itemValue="#{fkIdCiudadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{localidadManagedBean.update}" value="Guardar cambios" update="display,:LocalidadListForm:datalist,:growl" oncomplete="handleSubmit(args, 'LocalidadEditDialog');"/>
+                    <p:commandButton value="Cancelar" onclick="LocalidadEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

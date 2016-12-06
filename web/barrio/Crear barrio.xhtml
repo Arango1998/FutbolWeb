@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BarrioCreateDlg" widgetVar="BarrioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Registrar barrio">
+            <h:form id="BarrioCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{barrioManageBean.barrio != null}">
+                        <p:outputLabel value="Código" for="idBarrio" />
+                        <p:inputText id="idBarrio" value="#{barrioManageBean.barrio.idBarrio}" title="Código" required="true" requiredMessage="Campo requerido"/>
+                        <p:outputLabel value="Nombre" for="nombreBarrio" />
+                        <p:inputText id="nombreBarrio" value="#{barrioManageBean.barrio.nombreBarrio}" title="Nombre" required="true" requiredMessage="Nombre"/>
+                        <p:outputLabel value="Localidad" for="fkIdLocalidad" />
+                        <p:selectOneMenu id="fkIdLocalidad" value="#{barrioManageBean.barrio.fkIdLocalidad}" required="true" requiredMessage="Campo requerido">
+                            <f:selectItems value="#{localidadManagedBean.itemsAvailableSelectOne}"
+                                           var="fkIdLocalidadItem"
+                                           itemValue="#{fkIdLocalidadItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{barrioManageBean.create()}" value="Guardar" update="display,:BarrioListForm:datalist,:growl" oncomplete="handleSubmit(args,'BarrioCreateDialog');"/>
+                    <p:commandButton value="Cancelar" onclick="BarrioCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EvaluacionViewDlg" widgetVar="EvaluacionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEvaluacionTitle}">
+            <h:form id="EvaluacionViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{evaluacionController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEvaluacionLabel_idEvaluacion}"/>
+                        <h:outputText value="#{evaluacionController.selected.idEvaluacion}" title="#{bundle.ViewEvaluacionTitle_idEvaluacion}"/>
+                        <h:outputText value="#{bundle.ViewEvaluacionLabel_valoracionNota}"/>
+                        <h:outputText value="#{evaluacionController.selected.valoracionNota}" title="#{bundle.ViewEvaluacionTitle_valoracionNota}"/>
+                        <h:outputText value="#{bundle.ViewEvaluacionLabel_fkIdDesempeño}"/>
+                        <h:outputText value="#{evaluacionController.selected.fkIdDesempeño}" title="#{bundle.ViewEvaluacionTitle_fkIdDesempeño}"/>
+                        <h:outputText value="#{bundle.ViewEvaluacionLabel_fkCodigoSeguimiento}"/>
+                        <h:outputText value="#{evaluacionController.selected.fkCodigoSeguimiento}" title="#{bundle.ViewEvaluacionTitle_fkCodigoSeguimiento}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EvaluacionViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

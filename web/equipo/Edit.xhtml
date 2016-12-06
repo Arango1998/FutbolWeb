@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EquipoEditDlg" widgetVar="EquipoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEquipoTitle}">
+            <h:form id="EquipoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{equipoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEquipoLabel_idEquipo}" for="idEquipo" />
+                        <p:inputText id="idEquipo" value="#{equipoController.selected.idEquipo}" title="#{bundle.EditEquipoTitle_idEquipo}" required="true" requiredMessage="#{bundle.EditEquipoRequiredMessage_idEquipo}"/>
+                        <p:outputLabel value="#{bundle.EditEquipoLabel_nombreEquipo}" for="nombreEquipo" />
+                        <p:inputText id="nombreEquipo" value="#{equipoController.selected.nombreEquipo}" title="#{bundle.EditEquipoTitle_nombreEquipo}" required="true" requiredMessage="#{bundle.EditEquipoRequiredMessage_nombreEquipo}"/>
+                        <p:outputLabel value="#{bundle.EditEquipoLabel_NJugadores}" for="NJugadores" />
+                        <p:inputText id="NJugadores" value="#{equipoController.selected.NJugadores}" title="#{bundle.EditEquipoTitle_NJugadores}" required="true" requiredMessage="#{bundle.EditEquipoRequiredMessage_NJugadores}"/>
+                        <p:outputLabel value="#{bundle.EditEquipoLabel_fkIdCategoria}" for="fkIdCategoria" />
+                        <p:selectOneMenu id="fkIdCategoria" value="#{equipoController.selected.fkIdCategoria}" required="true" requiredMessage="#{bundle.EditEquipoRequiredMessage_fkIdCategoria}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                           var="fkIdCategoriaItem"
+                                           itemValue="#{fkIdCategoriaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{equipoController.update}" value="#{bundle.Save}" update="display,:EquipoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EquipoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EquipoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

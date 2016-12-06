@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
+            <h:form id="UsuarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.idUsuario}" title="#{bundle.ViewUsuarioTitle_idUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_primerNombreUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.primerNombreUsuario}" title="#{bundle.ViewUsuarioTitle_primerNombreUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_segundoNombreUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.segundoNombreUsuario}" title="#{bundle.ViewUsuarioTitle_segundoNombreUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_primerApellidoUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.primerApellidoUsuario}" title="#{bundle.ViewUsuarioTitle_primerApellidoUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_segundoApellidoUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.segundoApellidoUsuario}" title="#{bundle.ViewUsuarioTitle_segundoApellidoUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_contraseña}"/>
+                        <h:outputText value="#{usuarioController.selected.contraseña}" title="#{bundle.ViewUsuarioTitle_contraseña}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_fechaDeNacimiento}"/>
+                        <h:outputText value="#{usuarioController.selected.fechaDeNacimiento}" title="#{bundle.ViewUsuarioTitle_fechaDeNacimiento}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_genero}"/>
+                        <h:outputText value="#{usuarioController.selected.genero}" title="#{bundle.ViewUsuarioTitle_genero}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_rh}"/>
+                        <h:outputText value="#{usuarioController.selected.rh}" title="#{bundle.ViewUsuarioTitle_rh}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_eps}"/>
+                        <h:outputText value="#{usuarioController.selected.eps}" title="#{bundle.ViewUsuarioTitle_eps}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_telefono}"/>
+                        <h:outputText value="#{usuarioController.selected.telefono}" title="#{bundle.ViewUsuarioTitle_telefono}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_email}"/>
+                        <h:outputText value="#{usuarioController.selected.email}" title="#{bundle.ViewUsuarioTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_estado}"/>
+                        <h:outputText value="#{usuarioController.selected.estado}" title="#{bundle.ViewUsuarioTitle_estado}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuarioLogin}"/>
+                        <h:outputText value="#{usuarioController.selected.usuarioLogin}" title="#{bundle.ViewUsuarioTitle_usuarioLogin}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_fkIdTipoRol}"/>
+                        <h:outputText value="#{usuarioController.selected.fkIdTipoRol}" title="#{bundle.ViewUsuarioTitle_fkIdTipoRol}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ActividadCreateDlg" widgetVar="ActividadCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateActividadTitle}">
+            <h:form id="ActividadCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{actividadController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateActividadLabel_idActividad}" for="idActividad" />
+                        <p:inputText id="idActividad" value="#{actividadController.selected.idActividad}" title="#{bundle.CreateActividadTitle_idActividad}" required="true" requiredMessage="#{bundle.CreateActividadRequiredMessage_idActividad}"/>
+                        <p:outputLabel value="#{bundle.CreateActividadLabel_nombreActividad}" for="nombreActividad" />
+                        <p:inputTextarea rows="4" cols="30" id="nombreActividad" value="#{actividadController.selected.nombreActividad}" title="#{bundle.CreateActividadTitle_nombreActividad}" required="true" requiredMessage="#{bundle.CreateActividadRequiredMessage_nombreActividad}"/>
+                        <p:outputLabel value="#{bundle.CreateActividadLabel_descripcionActividad}" for="descripcionActividad" />
+                        <p:inputTextarea rows="4" cols="30" id="descripcionActividad" value="#{actividadController.selected.descripcionActividad}" title="#{bundle.CreateActividadTitle_descripcionActividad}" required="true" requiredMessage="#{bundle.CreateActividadRequiredMessage_descripcionActividad}"/>
+                        <p:outputLabel value="#{bundle.CreateActividadLabel_tipoActividad}" for="tipoActividad" />
+                        <p:inputText id="tipoActividad" value="#{actividadController.selected.tipoActividad}" title="#{bundle.CreateActividadTitle_tipoActividad}" required="true" requiredMessage="#{bundle.CreateActividadRequiredMessage_tipoActividad}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{actividadController.create}" value="#{bundle.Save}" update="display,:ActividadListForm:datalist,:growl" oncomplete="handleSubmit(args,'ActividadCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ActividadCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

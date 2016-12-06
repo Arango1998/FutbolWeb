@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RevisionSeguimientoCreateDlg" widgetVar="RevisionSeguimientoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRevisionSeguimientoTitle}">
+            <h:form id="RevisionSeguimientoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{revisionSeguimientoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRevisionSeguimientoLabel_idRevision}" for="idRevision" />
+                        <p:inputText id="idRevision" value="#{revisionSeguimientoController.selected.idRevision}" title="#{bundle.CreateRevisionSeguimientoTitle_idRevision}" required="true" requiredMessage="#{bundle.CreateRevisionSeguimientoRequiredMessage_idRevision}"/>
+                        <p:outputLabel value="#{bundle.CreateRevisionSeguimientoLabel_fechaRevision}" for="fechaRevision" />
+                        <p:calendar id="fechaRevision" pattern="MM/dd/yyyy" value="#{revisionSeguimientoController.selected.fechaRevision}" title="#{bundle.EditRevisionSeguimientoTitle_fechaRevision}" required="true" requiredMessage="#{bundle.EditRevisionSeguimientoRequiredMessage_fechaRevision}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateRevisionSeguimientoLabel_observacion}" for="observacion" />
+                        <p:inputTextarea rows="4" cols="30" id="observacion" value="#{revisionSeguimientoController.selected.observacion}" title="#{bundle.CreateRevisionSeguimientoTitle_observacion}" />
+                        <p:outputLabel value="#{bundle.CreateRevisionSeguimientoLabel_fkCodigoSeguimiento}" for="fkCodigoSeguimiento" />
+                        <p:selectOneMenu id="fkCodigoSeguimiento" value="#{revisionSeguimientoController.selected.fkCodigoSeguimiento}" required="true" requiredMessage="#{bundle.EditRevisionSeguimientoRequiredMessage_fkCodigoSeguimiento}">
+                            <f:selectItems value="#{seguimientoController.itemsAvailableSelectOne}"
+                                           var="fkCodigoSeguimientoItem"
+                                           itemValue="#{fkCodigoSeguimientoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateRevisionSeguimientoLabel_fkIdUsuario}" for="fkIdUsuario" />
+                        <p:selectOneMenu id="fkIdUsuario" value="#{revisionSeguimientoController.selected.fkIdUsuario}" required="true" requiredMessage="#{bundle.EditRevisionSeguimientoRequiredMessage_fkIdUsuario}">
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="fkIdUsuarioItem"
+                                           itemValue="#{fkIdUsuarioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{revisionSeguimientoController.create}" value="#{bundle.Save}" update="display,:RevisionSeguimientoListForm:datalist,:growl" oncomplete="handleSubmit(args,'RevisionSeguimientoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RevisionSeguimientoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

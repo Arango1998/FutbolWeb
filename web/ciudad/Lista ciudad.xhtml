@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCiudadTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="CiudadListForm">
+                <p:panel header="Lista de ciudades">
+                    <p:dataTable id="datalist" value="#{ciudadManagedBean.items}" var="item"
+                                 selectionMode="single" selection="#{ciudadManagedBean.ciudad}"
+                                 paginator="true"
+                                 rowKey="#{item.idCiudad}"
+                                 rows="5"
+                                 rowsPerPageTemplate="5,10,15,20,25,30"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                      <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Código"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCiudad}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nombreCiudad}"/>
+                        </p:column>
+                       
+                       
+                       
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Registrar ciudad" actionListener="#{ciudadManagedBean.prepareCreate}" update=":CiudadCreateForm" oncomplete="PF('CiudadCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="Ver detalles" update=":CiudadViewForm" oncomplete="PF('CiudadViewDialog').show()" disabled="#{empty ciudadManagedBean.ciudad}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modificar registro" update=":CiudadEditForm" oncomplete="PF('CiudadEditDialog').show()" disabled="#{empty ciudadManagedBean.ciudad}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Eliminar registro" actionListener="#{ciudadManagedBean.destroy}" update=":growl,datalist" disabled="#{empty ciudadManagedBean.ciudad}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Crear ciudad.xhtml"/>
+            <ui:include src="Modificar ciudad.xhtml"/>
+            <ui:include src="Ver ciudad.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

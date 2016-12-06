@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TorneoCreateDlg" widgetVar="TorneoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTorneoTitle}">
+            <h:form id="TorneoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{torneoManagedBean.torneo != null}">
+                        <p:outputLabel value="Código" for="codigoTorneo" />
+                        <p:inputText id="codigoTorneo" value="#{torneoManagedBean.torneo.codigoTorneo}" title="Código" required="true" requiredMessage="Campo requerido"/>
+                        <p:outputLabel value="Nombre del torneo" for="nombreTorneo" />
+                        <p:inputText id="nombreTorneo" value="#{torneoManagedBean.torneo.nombreTorneo}" title="Nombre del torneo" required="true" requiredMessage="Campo requerido"/>
+                        <p:outputLabel value="Nombre del organizador" for="organizador" />
+                        <p:inputText id="organizador" value="#{torneoManagedBean.torneo.organizador}" title="Organizador" required="true" requiredMessage="Campo requerido"/>
+                        <p:outputLabel value="Nombre del barrio" for="fkIdBarrio" />
+                        <p:selectOneMenu id="fkIdBarrio" value="#{torneoManagedBean.torneo.fkIdBarrio}" required="true" requiredMessage="Campo requerido">
+                            <f:selectItems value="#{barrioManageBean.itemsAvailableSelectOne}"
+                                           var="fkIdBarrioItem"
+                                           itemValue="#{fkIdBarrioItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{torneoManagedBean.registrarTorneo()}" value="Guardar registro" update="display,:TorneoListForm:datalist,:growl" oncomplete="handleSubmit(args,'TorneoCreateDialog');"/>
+                    <p:commandButton value="Cancelar" onclick="TorneoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

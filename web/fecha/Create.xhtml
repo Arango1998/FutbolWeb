@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FechaCreateDlg" widgetVar="FechaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFechaTitle}">
+            <h:form id="FechaCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fechaController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateFechaLabel_idFechaProgramada}" for="idFechaProgramada" />
+                        <p:inputText id="idFechaProgramada" value="#{fechaController.selected.idFechaProgramada}" title="#{bundle.CreateFechaTitle_idFechaProgramada}" required="true" requiredMessage="#{bundle.CreateFechaRequiredMessage_idFechaProgramada}"/>
+                        <p:outputLabel value="#{bundle.CreateFechaLabel_horaEncuentro}" for="horaEncuentro" />
+                        <p:calendar id="horaEncuentro" pattern="MM/dd/yyyy HH:mm:ss" value="#{fechaController.selected.horaEncuentro}" title="#{bundle.EditFechaTitle_horaEncuentro}" required="true" requiredMessage="#{bundle.EditFechaRequiredMessage_horaEncuentro}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFechaLabel_fechaEncuentro}" for="fechaEncuentro" />
+                        <p:calendar id="fechaEncuentro" pattern="MM/dd/yyyy" value="#{fechaController.selected.fechaEncuentro}" title="#{bundle.EditFechaTitle_fechaEncuentro}" required="true" requiredMessage="#{bundle.EditFechaRequiredMessage_fechaEncuentro}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateFechaLabel_encuentro}" for="encuentro" />
+                        <p:inputTextarea rows="4" cols="30" id="encuentro" value="#{fechaController.selected.encuentro}" title="#{bundle.CreateFechaTitle_encuentro}" required="true" requiredMessage="#{bundle.CreateFechaRequiredMessage_encuentro}"/>
+                        <p:outputLabel value="#{bundle.CreateFechaLabel_fkCodigoTorneo}" for="fkCodigoTorneo" />
+                        <p:selectOneMenu id="fkCodigoTorneo" value="#{fechaController.selected.fkCodigoTorneo}" required="true" requiredMessage="#{bundle.EditFechaRequiredMessage_fkCodigoTorneo}">
+                            <f:selectItems value="#{torneoController.itemsAvailableSelectOne}"
+                                           var="fkCodigoTorneoItem"
+                                           itemValue="#{fkCodigoTorneoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fechaController.create}" value="#{bundle.Save}" update="display,:FechaListForm:datalist,:growl" oncomplete="handleSubmit(args,'FechaCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FechaCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
